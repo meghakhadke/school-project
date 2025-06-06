@@ -10,7 +10,7 @@ function Contact() {
             <h1 className='font-bold text-4xl sm:pt-[2.2%] pt-[8px] pb-[10px] text-primary'>School Address</h1>
             <p className='text-primary text-2xl font-medium'>Address: Gut No. 49, Bajaj Nagar, MIDC, Waluj, Aurangabad – 431136. (MH).<br></br>
 
-                  Contact: 6232616161/ 6232717171<br></br>
+                  Contact: 9518959191/ 9518959555<br></br>
 
                     Email: info@bhondawepatilschool.in<br></br></p>
           </div>

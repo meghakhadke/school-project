@@ -23,13 +23,13 @@ function Home() {
           className="w-full h-auto"
         >
           <SwiperSlide>
-            <img src="/images/home/slide-1.jpg" alt="Welcome 1" className="w-full h-[400px] md:h-[500px] lg:h-[600px] object-cover" />
+            <img src="/images/sliders/slide-1.jpg" alt="Welcome 1" className="w-full h-[400px] md:h-[500px] lg:h-[600px] object-cover" />
           </SwiperSlide>
           <SwiperSlide>
             <img src="/images/home/bg-building.jpg" alt="Building" className="w-full h-[400px] md:h-[500px] lg:h-[600px] object-cover" />
           </SwiperSlide>
           <SwiperSlide>
-            <img src="/images/home/slide-5.jpg" alt="Welcome 2" className="w-full h-[400px] md:h-[500px] lg:h-[600px] object-cover" />
+            <img src="/images/sliders/slide-2.jpg" alt="Welcome 2" className="w-full h-[400px] md:h-[500px] lg:h-[600px] object-cover" />
           </SwiperSlide>
         </Swiper>
       </div>
@@ -39,7 +39,7 @@ function Home() {
  
   <div className="flex gap-4 sm:gap-15 justify-center">
     <img
-      src="/images/home/home-welcome-1.jpg"
+      src="public\images\home\home-welcome-1.jpg"
       alt="Boy holding flag"
       className="w-[45%] sm:w-[310px] h-[auto] sm:h-[500px] object-cover"
     />

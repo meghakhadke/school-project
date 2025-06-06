@@ -1,55 +1,149 @@
-import React from 'react'
-import Slider from '../components/Slider'
+import React, { useState } from "react";
 
-function Admission() {
+const Admission = () => {
+  const [formData, setFormData] = useState({
+    studentName: "",
+    grade: "",
+    parentName: "",
+    contactNumber: "",
+    email: "",
+    address: ""
+  });
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setSuccess(false);
+
+    try {
+      const response = await fetch('http://localhost:8080/api/admissions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Submission failed');
+      }
+
+      setSuccess(true);
+      setFormData({
+        studentName: "",
+        grade: "",
+        parentName: "",
+        contactNumber: "",
+        email: "",
+        address: ""
+      });
+
+      setTimeout(() => setSuccess(false), 3000);
+
+    } catch (error) {
+      setError(error.message || 'An error occurred. Please try again.');
+      setTimeout(() => setError(""), 5000);
+    }
+  };
+
   return (
-    <div>
-          <Slider title={'Admission'}/>
+    <div className="min-h-screen bg-white">
+      <div className="w-full flex justify-center mb-6">
+        <img src="./images/subheaderbg.jpg" alt="Header" className="w-full max-h-60 object-cover" />
+      </div>
+      <div className="flex justify-center">
+        <form
+          className="bg-blue-800 text-white p-8 rounded-lg w-full max-w-lg shadow-lg"
+          onSubmit={handleSubmit}
+        >
+          <h2 className="text-xl font-bold mb-14">Please fill the Form below to Place Admission Enquiry</h2>
 
-  <div className="bg-[#FFFFFF] w-full flex items-center justify-center py-8 sm:py-12">
-  <div className="w-full max-w-[900px] px-4">
-    
-    <h1 className="text-[1.8rem] sm:text-[2rem] font-semibold text-center mb-4">
-      School Virtual Tour
-    </h1>
+          {error && (
+            <div className="mb-4 p-3 bg-red-100 text-red-700 rounded">
+              {error}
+            </div>
+          )}
 
-    <div className="relative w-full pb-[56.25%] h-0">
-      <iframe 
-        className="absolute top-0 left-0 w-full h-full"
-        src="https://www.youtube.com/embed/cuIFuOVG9eA"
-        title="Bhonwade Patil Public School (CBSE) Bajajnagar Waluj"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerPolicy="strict-origin-when-cross-origin"
-        allowFullScreen
-      ></iframe>
+          {success && (
+            <div className="mb-4 p-3 bg-green-100 text-green-700 rounded">
+              Admission submitted successfully!
+            </div>
+          )}
+
+          <div className="space-y-4">
+            <input
+              type="text"
+              name="studentName"
+              placeholder="Name of Student"
+              className="w-full p-3 rounded bg-white text-black border border-gray-300"
+              value={formData.studentName}
+              onChange={handleChange}
+              required
+            />
+            <input
+              type="text"
+              name="grade"
+              placeholder="Admission Required For Which Grade?"
+              className="w-full p-3 rounded bg-white text-black border border-gray-300"
+              value={formData.grade}
+              onChange={handleChange}
+              required
+            />
+            <input
+              type="text"
+              name="parentName"
+              placeholder="Parent Name"
+              className="w-full p-3 rounded bg-white text-black border border-gray-300"
+              value={formData.parentName}
+              onChange={handleChange}
+              required
+            />
+            <input
+              type="tel"
+              name="contactNumber"
+              placeholder="Contact Number"
+              className="w-full p-3 rounded bg-white text-black border border-gray-300"
+              value={formData.contactNumber}
+              onChange={handleChange}
+              required
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email ID"
+              className="w-full p-3 rounded bg-white text-black border border-gray-300"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+            <input
+              type="text"
+              name="address"
+              placeholder="Residential Address"
+              className="w-full p-3 rounded bg-white text-black border border-gray-300"
+              value={formData.address}
+              onChange={handleChange}
+              required
+            />
+            <button
+              type="submit"
+              className="w-full bg-red-600 text-white p-3 rounded hover:bg-red-700 font-semibold"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
-  </div>
-  </div>
+  );
+};
 
-  <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-  <div className="bg-[#1E3A8A] text-white w-full max-w-[600px] h-[680px] p-8 rounded-lg shadow-lg flex flex-col">
-    <h2 className="text-2xl font-bold text-center mb-6">
-      Please fill the Form below to Place Admission Enquiry
-    </h2>
-    
-    <form className="flex flex-col space-y-6">
-      <input type="text" placeholder="Name of Student" className="p-3 bg-transparent border-b border-white text-lg placeholder-white outline-none" />
-      <input type="text" placeholder="Admission Required For Which Grade?" className="p-3 bg-transparent border-b border-white text-lg placeholder-white outline-none" />
-      <input type="text" placeholder="Parent Name" className="p-3 bg-transparent border-b border-white text-lg placeholder-white outline-none" />
-      <input type="tel" placeholder="Contact Number" className="p-3 bg-transparent border-b border-white text-lg placeholder-white outline-none" />
-      <input type="email" placeholder="Email ID" className="p-3 bg-transparent border-b border-white text-lg placeholder-white outline-none" />
-      <textarea placeholder="Residential Address" className="p-3 bg-transparent border-b border-white text-lg placeholder-white outline-none "></textarea>
-
-      <button className="bg-red-600 text-black font-bold py-3 text-xl rounded mt-4 hover:bg-red-700 transition">
-        Submit
-      </button>
-    </form>
-  </div>
-</div>
-
-    </div>
-  )
-}
-
-export default Admission
+export default Admission;
